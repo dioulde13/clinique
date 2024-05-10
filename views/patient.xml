@@ -1,0 +1,92 @@
+<odoo>
+    <record model="ir.ui.view" id="clinique_patient_tree">
+        <field name="name">Patient list</field>
+        <field name="model">clinique.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference" readonly="1"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="genre"/>
+                <!--                <field name="adresse"/>-->
+                <!--                <field name="telephone"/>-->
+                                <field name="email"/>
+                <field name="date_naissance"/>
+                <!--                <field name="profession"/>-->
+                <!--                <field name="derniere_visite"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_patient_search" model="ir.ui.view">
+        <field name="name">patient.info.search</field>
+        <field name="model">clinique.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter string="Genre" name="genre" context="{'group_by': 'genre'}"/>
+                </group>
+                <field name="name"/>
+                <field name="age"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_patient_form" model="ir.ui.view">
+        <field name="name">Patient list</field>
+        <field name="model">clinique.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" string="Nom"/>
+                            <field name="genre" string="Genre"/>
+                            <field name="email" string="Email"/>
+                        </group>
+                        <group>
+                            <field name="date_naissance" string="Date de naissance"/>
+                            <field name="age" string="Âge"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+                <!--                <notebook>-->
+                <!--                    <page string="Page1">-->
+                <!--                        <div class="oe_chatter">-->
+                <!--                            <field name="message_follower_ids"/>-->
+                <!--                            <field name="message_ids" />-->
+                <!--                        </div>-->
+                <!--                    </page>-->
+                <!--                    <page string="Page2">-->
+                <!--                    </page>-->
+                <!--                </notebook>-->
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_clinique_patient">
+        <field name="name">Patient</field>
+        <field name="res_model">clinique.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Creer un patient</p>
+        </field>
+    </record>
+
+
+    <menuitem
+            name="Patient"
+            id="menu_patient_detail"
+            action="action_clinique_patient"
+            parent="menu_patient"
+            sequence="10"/>
+</odoo>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <template id="report_header_footer_heriter" inherit_id="web.external_layout_boxed" >
+        <xpath expr="//div[1]" position="replace">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style" style="margin-bottom: 5px;">
+                <div class="row">
+                    <div class="col-7">
+                        <img
+                                src="/clinique/static/description/abs.jpeg"
+                                alt="Image"
+                                height="120" width="150"
+                        />
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-3">
+
+                    </div>
+                </div>
+            </div>
+        </xpath>
+                <!--                <div class="row">-->
+                <!--                    <img-->
+                <!--                            src="/clinique/static/description/footer.png"-->
+                <!--                            alt="Image"-->
+                <!--                            height="100" width="100"-->
+                <!--                            style="text-align: center; color:black;"-->
+                <!--                    />-->
+                <!--                </div>-->
+    </template>
+    <template id="report_facture_heriter" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='row']" position="replace">
+        </xpath>
+        <xpath expr="//h2/span[1]" position="replace">
+        </xpath>
+        <xpath expr="//h2/span[@t-field='o.name']" position="replace">
+        </xpath>
+
+        <xpath expr="//table/thead/tr/th[@name='th_description']" position="replace">
+            <th style="background-color: rgb(220, 220, 220);">
+                <span>Description</span>
+            </th>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[@name='th_quantity']" position="replace">
+            <th style="background-color: rgb(220, 220, 220);">
+                <span>QUANTITY</span>
+            </th>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[@name='th_priceunit']" position="replace">
+            <th style="background-color: rgb(220, 220, 220);">
+                <span>PRIX UNITAIRE</span>
+            </th>
+        </xpath>
+
+        <xpath expr="//table/thead/tr/th[@name='th_taxes']" position="replace">
+            <th style="background-color: rgb(220, 220, 220);">
+                <span>TVA</span>
+            </th>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[@name='th_subtotal']" position="replace">
+            <th style="background-color: rgb(220, 220, 220);">
+                <span>MONTANT</span>
+            </th>
+        </xpath>
+
+        <xpath expr="//div[@class='row mt-4 mb-4']" position="replace">
+            <div class="row mb-4"
+                 style="background-color: rgb(220, 220, 220); padding-top:15px; padding-right:10px; ">
+                <h2 style="text-align: right; color:black;">FACTURE</h2>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-3">
+                    <span style="color:black; font-size:15px;">Adresse</span>
+                    <br/>
+                    <span style="color:black; font-size:15px;">Ville</span>
+                </div>
+                <div class="col-6">
+                    <span style="color:black; font-size:15px;">Dixinn Carrefour échangeur, Immeuble Baldé</span>
+                    <br/>
+                    <span style="color:black; font-size:15px;">Conakry</span>
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-3">
+                    <span style="color:black; font-size:15px; font-weight:bold;">CUSTOMER:</span>
+                    <br/>
+                    <span style="color:black; font-size:15px;">Name</span>
+                    <br/>
+                    <span style="color:black; font-size:15px;">Address</span>
+                    <br/>
+                    <span style="color:black; font-size:15px;">City</span>
+                </div>
+                <div class="col-3 mt-2">
+                    <span></span>
+                    <br/>
+                    <span t-field="o.partner_id.name" style="color:black; font-size:15px;"></span>
+                    <br/>
+                    <span t-field="o.partner_id.street" style="color:black; font-size:15px;"></span>
+                    <br/>
+                    <span t-field="o.partner_id.city" style="color:black; font-size:15px;"></span>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <span style="color:black; font-size:15px;">INVOICE NUMBER</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">INVOICE DATE</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">PERIODE COUVERTE</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">F.O.B</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">YOUR ORDER NO.</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">TERMS</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">SALES REP</span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">SHIPPED VIA</span>
+                        </div>
+                        <div class="col-1" style="height:200px; border-left: 1px solid black;">
+
+                        </div>
+                        <div class="col-5">
+                            <span t-if="o.name != '/'" t-field="o.name" style="color:black; font-size:15px;"></span>
+                            <br/>
+                            <span t-if="o.invoice_date">
+                                <t t-set="parsed_date" t-value="o.invoice_date"/>
+                                <t t-set="day" t-value="parsed_date.strftime('%d')"/>
+                                <t t-set="month" t-value="parsed_date.strftime('%B')"/>
+                                <t t-set="year" t-value="parsed_date.strftime('%Y')"/>
+                                <span t-esc="day" style="color:black; font-size:15px;"/>
+                                <span t-esc="month" style="color:black; font-size:15px;"/>
+                                <span t-esc="year" style="color:black; font-size:15px;"/>
+                            </span>
+                            <!--                            <span t-field="o.invoice_date" style="color:black; font-size:15px;"></span>-->
+                            <br/>
+                            <span t-if="o.invoice_date">
+                                <t t-set="parsed_date" t-value="o.invoice_date"/>
+                                <span t-esc="parsed_date.strftime('%d')" style="color:black; font-size:15px;"/>
+                            </span>
+                            <span style="color:black; font-size:15px;">au</span>
+                            <span t-if="o.invoice_date_due">
+                                <t t-set="parsed_date" t-value="o.invoice_date_due"/>
+                                <t t-set="day" t-value="parsed_date.strftime('%d')"/>
+                                <t t-set="month" t-value="parsed_date.strftime('%B')"/>
+                                <t t-set="year" t-value="parsed_date.strftime('%Y')"/>
+                                <span t-esc="day" style="color:black; font-size:15px;"/>
+                                <span t-esc="month" style="color:black; font-size:15px;"/>
+                                <span t-esc="year" style="color:black; font-size:15px;"/>
+                            </span>
+                            <br/>
+                            <span style="color:black; font-size:15px;">4</span>
+                            <!--<span t-field="o.invoice_date_due" style="color:black; font-size:15px;"/>-->
+                            <br/>
+                            <span style="color:black; font-size:15px;"></span>
+                            <br/>
+                            <span style="color:black; font-size:15px;"></span>
+                            <br/>
+                            <span style="color:black; font-size:15px;"></span>
+                            <br/>
+                            <span style="color:black; font-size:15px;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4 mb-4">
+                <div class="col-4">
+                    <span style="color:black; font-size:15px;">Sales Tax Rate (VAT):</span>
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-6">
+                    <span style="color:black; font-size:15px; font-weight:bold;">Numéro de Téléphone:</span>
+                    <span t-field="o.company_id.phone" style="color:black; font-size:15px; font-weight:bold;"></span>
+                    <!--                    <span style="color:black; font-size:16px;">Numéro de Téléphone: (+224) 666 42 10 34</span>-->
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//p[@name='payment_communication']" position="replace">
+            <div class="row">
+                <div class="col-7">
+                    <span style="color:black; font-size:18px;">POUR TOUTES INFORMATIONS:</span>
+                    <br/>
+                    <span style="color:black; font-size:12px;">Alix Davilmar</span>
+                    <br/>
+                    <span style="color:black; font-size:12px;">+224 666 42 10 34</span>
+                    <br/>
+                    <span style="color:black; font-size:12px;">email: al1204@hotmail.com</span>
+                </div>
+                <div class="col-5">
+                    <span style="color:black; font-size:18px;">MAKE ALL CHECKS PAYABLE TO:</span>
+                    <br/>
+                    <span style="color:black; font-size:18px;">ABS Solutions Sarl</span>
+                    <br/>
+                    <span style="color:black; font-size:12px;">Attn: Comptes Recevables</span>
+                    <br/>
+                    <span style="color:black; font-size:12px;">Address Dixinn Carrefour échangeur, Immeuble Baldé</span>
+                    <br/>
+                    <span style="color:black; font-size:12px;">Ville Dixinn, Conakry</span>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,28 @@
+<odoo>
+        <record model="ir.ui.view" id="clinique_departement_tree">
+          <field name="name">clinique list</field>
+          <field name="model">clinique.departement</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+            </tree>
+          </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="action_clinique_departement">
+        <field name="name">clinique</field>
+        <field name="res_model">clinique.departement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Creer un departement</p>
+        </field>
+    </record>
+
+    <menuitem
+            name="Departement"
+            id="menu_departement_detail"
+            action="action_clinique_departement"
+            parent="menu_departement"
+            sequence="10"/>
+
+</odoo>

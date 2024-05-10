@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_header_footer_heriter" inherit_id="web.external_layout_boxed" >
+        <xpath expr="//div[1]" position="replace">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style" style="margin-bottom: 5px;">
+                <div class="row">
+                    <div class="col-7">
+                        <img
+                                src="/clinique/static/description/abs.jpeg"
+                                alt="Image"
+                                height="120" width="150"
+                        />
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-3">
+
+                    </div>
+                </div>
+            </div>
+        </xpath>
+                <!--                <div class="row">-->
+                <!--                    <img-->
+                <!--                            src="/clinique/static/description/footer.png"-->
+                <!--                            alt="Image"-->
+                <!--                            height="100" width="100"-->
+                <!--                            style="text-align: center; color:black;"-->
+                <!--                    />-->
+                <!--                </div>-->
+    </template>
+</odoo>

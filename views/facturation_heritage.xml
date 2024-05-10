@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_facturation_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="motif"/>
+                </xpath>
+
+                <!--Partie groupe secretaire-->
+                <xpath expr="//button[@name='action_post' and @id='action_confirm']" position="attributes">
+                    <attribute name="groups">clinique.group_secretaire</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--Fin groupe secretaire-->
+
+                <!--Debut groupe lecture seulement-->
+                <xpath expr="//button[@name='button_cancel' and @id='action_annuler']" position="attributes">
+                    <attribute name="groups">clinique.group_lecture_seulement</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_reverse']" position="attributes">
+                    <attribute name="groups">clinique.group_lecture_seulement</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
+                    <attribute name="groups">clinique.group_lecture_seulement</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                 <!--Fin groupe lecture seulement-->
+
+                <!--Partie groupe responsable-->
+                <xpath expr="//button[@name='preview_invoice']" position="attributes">
+                    <attribute name="groups">clinique.group_responsable</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_post' and @id='action_confirm']" position="attributes">
+                    <attribute name="groups">clinique.group_responsable</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_reverse']" position="attributes">
+                    <attribute name="groups">clinique.group_responsable</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                 <xpath expr="//button[@name='action_register_payment' and @id='account_invoice_payment_btn']" position="attributes">
+                    <attribute name="groups">clinique.group_responsable</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <!--Fin groupe responsable-->
+
+                <!--Partie groupe docteur-->
+                <xpath expr="//button[@name='action_post' and @id='action_confirm']" position="attributes">
+                    <attribute name="groups">clinique.group_docteur</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='preview_invoice']" position="attributes">
+                    <attribute name="groups">clinique.group_docteur</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+
+                <xpath expr="//button[@name='action_reverse']" position="attributes">
+                    <attribute name="groups">clinique.group_docteur</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
+                    <attribute name="groups">clinique.group_docteur</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_draft']" position="attributes">
+                    <attribute name="groups">clinique.group_docteur</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                 <xpath expr="//button[@name='button_cancel' and @id='action_annuler']" position="attributes">
+                    <attribute name="groups">clinique.group_docteur</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <!--Fin groupe docteur-->
+
+                <!-- -->
+                  <xpath expr="//button[@name='preview_invoice']" position="attributes">
+                    <attribute name="groups">clinique.group_secretaire</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_reverse']" position="attributes">
+                    <attribute name="groups">clinique.group_secretaire</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                 <xpath expr="//button[@name='action_register_payment' and @id='account_invoice_payment_btn']" position="attributes">
+                    <attribute name="groups">clinique.group_secretaire</attribute>
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <!-- -->
+            </field>
+        </record>
+    </data>
+</odoo>

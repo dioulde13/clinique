@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sequence_patient" model="ir.sequence">
+        <field name="name">Patient sequence</field>
+        <field name="code">clinique.patient</field>
+        <field name="prefix">PA</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

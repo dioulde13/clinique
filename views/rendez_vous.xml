@@ -1,0 +1,83 @@
+<odoo>
+    <record model="ir.ui.view" id="clinique_rendez-vous_tree">
+        <field name="name">Rendez-vous list</field>
+        <field name="model">clinique.rendez_vous</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference" string="Reference"/>
+                <field name="patient_id"/>
+                <field name="user_id"/>
+                <field name="duree"/>
+                <!--                <field name="adresse"/>-->
+                <!--                <field name="telephone"/>-->
+                <!--                <field name="email"/>-->
+                <field name="date"/>
+                <!--                <field name="profession"/>-->
+                <!--                <field name="derniere_visite"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_rendez_vous_form" model="ir.ui.view">
+        <field name="name">>Rendez-vous list</field>
+        <field name="model">clinique.rendez_vous</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_email"
+                            data-hotkey="m"
+                            string="Send Mail"
+                            class="oe_highlight"
+                            type="object"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id" string="Patient"/>
+                            <field name="user_id" string="Docteur"/>
+                            <field name="date" string="Date du rendez-vous"/>
+                        </group>
+                        <group>
+                            <field name="duree" string="Duree"/>
+                            <field name="duree" string="Heure"/>
+                        </group>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+<!--                <notebook>-->
+<!--                    <page string="Page1">-->
+<!--                        ...-->
+<!--                    </page>-->
+<!--                    <page string="Page2">-->
+<!--                        ...-->
+<!--                    </page>-->
+<!--                </notebook>-->
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_rendez_vous_patient">
+        <field name="name">Rendez-vous</field>
+        <field name="res_model">clinique.rendez_vous</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Creer un rendez-vous</p>
+        </field>
+    </record>
+
+    <menuitem
+            name="Rendez-vous"
+            id="menu_rendez_vous_detail"
+            action="action_rendez_vous_patient"
+            parent="menu_rendez_vous"
+            sequence="10"/>
+</odoo>
