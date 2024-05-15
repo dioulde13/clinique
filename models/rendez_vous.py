@@ -16,6 +16,8 @@ class CLiniqueRendezVous(models.Model):
     user_id = fields.Many2one('res.users', string='Médecin', default=lambda self: self.env.user.id, readonly=True)
     motif = fields.Text(string='Motif')
     remarques = fields.Text(string='Remarques')
+    code = fields.Char(string='Code de sécurité')
+
 
 
     @api.model
@@ -34,13 +36,28 @@ class CLiniqueRendezVous(models.Model):
     #     }
     #     template.send_mail(res_id, force_send=True, email_values=email_values)
 
+    # def action_send_email(self):
+    #     users = self.env['clinique.rendez_vous'].sudo().search([]).mapped('user_id')
+    #     for user in users:
+    #         appointments = self.env['clinique.rendez_vous'].sudo().search([('user_id', '=', user.id)])
+    #         template_id = self.env.ref('clinique.rendez_vous_mail_templete')
+    #         for appointment in appointments:
+    #             template_id.send_mail(appointment.id, force_send=True)
     def action_send_email(self):
         users = self.env['clinique.rendez_vous'].sudo().search([]).mapped('user_id')
+        print(users)
+        template_id = self.env.ref('clinique.rendez_vous_mail_templete')
+        print(template_id)
         for user in users:
-            appointments = self.env['clinique.rendez_vous'].sudo().search([('user_id', '=', user.id)])
-            template_id = self.env.ref('clinique.rendez_vous_mail_templete')
+            appointments = self.env['clinique.rendez_vous'].search([('user_id', '=', user.id)])
+            print(appointments)
             for appointment in appointments:
-                template_id.send_mail(appointment.id, force_send=True)
+                print("sjsjjs")
+                if appointment.code:
+                    print("code")
+                    template_id.send_mail(appointment.id, force_send=True)
+                else:
+                    pass
 
     # def action_send_email(self):
     #     template_id = self.env.ref('clinique.rendez_vous_mail_templete')

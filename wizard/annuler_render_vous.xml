@@ -1,0 +1,70 @@
+<odoo>
+    <!--    <record model="ir.ui.view" id="clinique_patient_tree">-->
+    <!--        <field name="name">Patient list</field>-->
+    <!--        <field name="model">clinique.patient</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree>-->
+    <!--                <field name="reference" readonly="1"/>-->
+    <!--                <field name="name"/>-->
+    <!--                <field name="age"/>-->
+    <!--                <field name="genre"/>-->
+    <!--                &lt;!&ndash;                <field name="adresse"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <field name="telephone"/>&ndash;&gt;-->
+    <!--                                <field name="email"/>-->
+    <!--                <field name="date_naissance"/>-->
+    <!--                &lt;!&ndash;                <field name="profession"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <field name="derniere_visite"/>&ndash;&gt;-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--    <record id="hospital_patient_search" model="ir.ui.view">-->
+    <!--        <field name="name">patient.info.search</field>-->
+    <!--        <field name="model">clinique.patient</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <search>-->
+    <!--                <group expand="0" string="Group By">-->
+    <!--                    <filter string="Genre" name="genre" context="{'group_by': 'genre'}"/>-->
+    <!--                </group>-->
+    <!--                <field name="name"/>-->
+    <!--                <field name="age"/>-->
+    <!--            </search>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_annuler_render_vous_form" model="ir.ui.view">
+        <field name="name">annuler.rendervous.wizard.form</field>
+        <field name="model">cancel.rendervous.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="patient_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button
+                            name="action_annuler"
+                            string="Annuler Render Vous"
+                            type="object" class="btn-secondary" data-hotkey="q"/>
+                    <button string="Discard" class="btn-primary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_annuler_render_vous">
+        <field name="name">Annuler</field>
+        <field name="res_model">cancel.rendervous.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            name="Annuler"
+            id="menu_annuler_render_vous"
+            action="action_annuler_render_vous"
+            parent="menu_annulation"
+            sequence="1"
+    />
+</odoo>

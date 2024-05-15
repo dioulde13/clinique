@@ -67,6 +67,7 @@
                                                             Reference du patient :
                                                             <t t-out="object.patient_id.reference"></t>
                                                             <br/>
+                                                            <input type="text" name="code" style="width: 100px;"/>
                                                             <br/>
                                                             Merci pour votre compréhension.
                                                             <t t-if="user.signature">

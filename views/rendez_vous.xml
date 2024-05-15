@@ -8,6 +8,7 @@
                 <field name="patient_id"/>
                 <field name="user_id"/>
                 <field name="duree"/>
+                <field name="code"/>
                 <!--                <field name="adresse"/>-->
                 <!--                <field name="telephone"/>-->
                 <!--                <field name="email"/>-->
@@ -41,6 +42,7 @@
                         <group>
                             <field name="patient_id" string="Patient"/>
                             <field name="user_id" string="Docteur"/>
+                            <field name="code" string="Code" groups="base.group_no_one"/>
                             <field name="date" string="Date du rendez-vous"/>
                         </group>
                         <group>

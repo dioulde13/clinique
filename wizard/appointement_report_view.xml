@@ -1,0 +1,42 @@
+<odoo>
+
+    <record id="view_report_render_vous_form" model="ir.ui.view">
+        <field name="name">report.rendervous.wizard.form</field>
+        <field name="model">render_vous.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="patient_id"/>
+                    </group>
+                     <group>
+                        <field name="date_debut"/>
+                        <field name="date_fin"/>
+                    </group>
+                </group>
+                <footer>
+                    <button
+                            name="action_report"
+                            string="Imprimer"
+                            type="object" class="btn-secondary" data-hotkey="q"/>
+                    <button string="Annuler" class="btn-primary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_report_render_vous">
+        <field name="name">Rendez-vous</field>
+        <field name="res_model">render_vous.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            name="Annalye"
+            id="menu_report_render_vous"
+            action="action_report_render_vous"
+            parent="menu_annalyse"
+            sequence="1"
+    />
+</odoo>

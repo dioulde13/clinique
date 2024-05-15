@@ -1,6 +1,38 @@
 <odoo>
-    <menuitem name="Clinique" id="menu_clinique_root" sequence="10"/>
-    <menuitem name="Departements" id="menu_departement" parent="menu_clinique_root" sequence="10"/>
-    <menuitem name="Patients" id="menu_patient" parent="menu_clinique_root" sequence="12"/>
-    <menuitem name="Rendez-vous" id="menu_rendez_vous" parent="menu_clinique_root" sequence="14"/>
+    <menuitem
+            name="Clinique"
+            id="menu_clinique_root"
+            sequence="10"
+    />
+    <menuitem
+            name="Departements"
+            id="menu_departement"
+            parent="menu_clinique_root"
+            sequence="10"
+    />
+    <menuitem
+            name="Annulation"
+            id="menu_annulation"
+            parent="menu_clinique_root"
+            sequence="15"
+    />
+      <menuitem
+            name="Annalyses"
+            id="menu_annalyse"
+            parent="menu_clinique_root"
+            sequence="15"
+    />
+
+    <menuitem
+            name="Patients"
+            id="menu_patient"
+            parent="menu_clinique_root"
+            sequence="12"
+    />
+    <menuitem
+            name="Rendez-vous"
+            id="menu_rendez_vous"
+            parent="menu_clinique_root"
+            sequence="14"
+    />
 </odoo>
