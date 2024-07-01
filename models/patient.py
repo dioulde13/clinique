@@ -18,7 +18,23 @@ class CLiniquePatient(models.Model):
     date_naissance = fields.Date(string='Date de naissance', tracking=True)
     profession = fields.Char(string='Profession')
     derniere_visite = fields.Datetime(string='Dernière Visite')
+    priority = fields.Selection(
+        [
+            ('0', 'Nouveau'),
+            ('1', 'En cours'),
+            ('2', 'En attente'),
+            ('3', 'Resolu'),
+            ('4', 'Annuler'),
+        ], string="Priority")
 
+    state = fields.Selection(
+        [
+            ('nouveau', 'Nouveau'),
+            ('en_cours', 'En cours'),
+            ('en_attente', 'En attente'),
+            ('resolu', 'Resolu'),
+            ('annuler', 'Annuler'),
+        ], default='nouveau', string="Status")
 
     @api.model
     def create(self, vals):
@@ -30,8 +46,18 @@ class CLiniquePatient(models.Model):
         for patient in self:
             today = date.today()
             if patient.date_naissance:
-              patient.age = today.year - patient.date_naissance.year
+                patient.age = today.year - patient.date_naissance.year
             else:
                 patient.age = 1
 
+    def action_en_cours(self):
+        self.state = 'en_cours'
 
+    def action_en_attente(self):
+        self.state = 'en_attente'
+
+    def action_resolu(self):
+        self.state = 'resolu'
+
+    def action_annuler(self):
+        self.state = 'annuler'

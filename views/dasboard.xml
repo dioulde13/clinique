@@ -1,0 +1,28 @@
+<odoo>
+    <!-- Définir la vue pour le tableau de bord des tickets d'assistance -->
+    <record model="ir.ui.view" id="assistance_tickets_dashboard">
+        <field name="name">Ticket dashboard</field>
+        <field name="model">board.board</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard">
+                <board style="4-2">
+                    <column>
+                        <action string="Equipe assistance" name="%(action_dashboard_equipe)d"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    <!-- Définir l'action de fenêtre pour le tableau de bord -->
+    <record id="action_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="assistance_tickets_dashboard"/>
+    </record>
+
+    <!-- Définir l'élément de menu pour le tableau de bord -->
+    <menuitem id="dashboard_menu" name="Vue d'ensemble" parent="menu_principal" sequence="1" action="action_dashboard"/>
+</odoo>

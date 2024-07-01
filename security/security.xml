@@ -22,15 +22,26 @@
             <field name="perm_create" eval="False"/>
             <field name="perm_unlink" eval="False"/>
         </record>
-        <record model="ir.model.access" id="access_responsable_facture">
-            <field name="name">Les droits d'acces des responsables a la facturation</field>
-            <field name="model_id" ref="model_account_move"/>
+
+        <record model="ir.model.access" id="access_responsable_rendez_vous">
+            <field name="name">Les droits d'acces des responsables au rendez-vous</field>
+            <field name="model_id" ref="model_clinique_rendez_vous"/>
             <field name="group_id" ref="clinique.group_responsable"/>
             <field name="perm_read">1</field>
             <field name="perm_write">1</field>
             <field name="perm_create">1</field>
             <field name="perm_unlink">1</field>
         </record>
+
+<!--        <record model="ir.model.access" id="access_responsable_facture">-->
+<!--            <field name="name">Les droits d'acces des responsables a la facturation</field>-->
+<!--            <field name="model_id" ref="model_account_move"/>-->
+<!--            <field name="group_id" ref="clinique.group_responsable"/>-->
+<!--            <field name="perm_read">1</field>-->
+<!--            <field name="perm_write">1</field>-->
+<!--            <field name="perm_create">1</field>-->
+<!--            <field name="perm_unlink">1</field>-->
+<!--        </record>-->
 
         <record id="group_secretaire" model="res.groups">
             <field name="name">Secretaire</field>
@@ -62,15 +73,15 @@
             <field name="perm_unlink" eval="False"/>
         </record>
 
-          <record model="ir.model.access" id="access_docteur_facture">
-            <field name="name">Les droits d'acces des docteurs a la facturation</field>
-            <field name="model_id" ref="model_account_move"/>
-            <field name="group_id" ref="clinique.group_docteur"/>
-            <field name="perm_read">1</field>
-            <field name="perm_write">1</field>
-            <field name="perm_create">1</field>
-            <field name="perm_unlink">1</field>
-        </record>
+<!--          <record model="ir.model.access" id="access_docteur_facture">-->
+<!--            <field name="name">Les droits d'acces des docteurs a la facturation</field>-->
+<!--            <field name="model_id" ref="model_account_move"/>-->
+<!--            <field name="group_id" ref="clinique.group_docteur"/>-->
+<!--            <field name="perm_read">1</field>-->
+<!--            <field name="perm_write">1</field>-->
+<!--            <field name="perm_create">1</field>-->
+<!--            <field name="perm_unlink">1</field>-->
+<!--        </record>-->
 
          <record model="ir.model.access" id="access_docteur">
             <field name="name">Les droits d'acces des docteurs</field>

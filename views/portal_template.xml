@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_all_patients" inherit_id="portal.portal_my_home" customize_show="True" priority="2">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Patients</t>
+                <t t-set="url" t-value="'/my/patient'"/>
+                <t t-set="placeholder_count" t-value="'patient_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_breadcrumbs_patient" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'patient_list_view'" class="breadcrumb-item">Liste des patients /
+                <a t-attf-href="/new/patient">Ajouter</a>
+            </li>
+            <li t-if="page_name == 'patient_form_view'" class="breadcrumb-item">
+                <a t-attf-href="/my/patient">patients</a>
+                /
+                Modifier les informations de la référence
+                <span t-out="patient.reference"/>
+            </li>
+            <li t-if="page_name == 'patient_enregister'" class="breadcrumb-item">
+                <a t-attf-href="/my/patient">patients</a>
+                / Enregistrer un patient
+            </li>
+        </xpath>
+    </template>
+
+
+    <template id="new_patient_form_portal">
+        <t t-call="portal.portal_layout">
+            <form role="form" action="/create/webpatient" method="POST">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="form-group my-3 row">
+                    <label class="col-2" for="name">Votre nom</label>
+                    <div class="col-10">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Nom patient"
+                               required="required"/>
+                    </div>
+                </div>
+                <div class="form-group my-3 row">
+                    <label class="col-2" for="genre">Genre:</label>
+                    <div class="col-10">
+                        <select id="genre" name="genre" class="form-select form-select-sm required">
+                            <option value="homme">Homme</option>
+                            <option value="femme">Femme</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="col-2" for="adresse">Votre adresse</label>
+                    <div class="col-10">
+                        <input type="text" name="adresse" id="adresse" class="form-control" placeholder="Adresse"
+                               required="required"/>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="col-2" for="telephone">Telephone</label>
+                    <div class="col-10">
+                        <input type="text" name="telephone" data-validation="number"
+                               data-validation-allowing="negative,number"
+                               datavalidation-ignore="$" required="required"
+                               class="form-control"
+                               id="telephone" placeholder="Telephone" pattern="\d*"/>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="col-2" for="age">Email</label>
+                    <div class="col-10">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Email"
+                               required="required"/>
+                    </div>
+                </div>
+                <div class="form-group mb-3 row">
+                    <label class="col-2" for="date_naissance">Date de Naissance:</label>
+                    <div class="col-10">
+                        <input type="date" id="date_naissance" name="date_naissance" required="required"
+                               oninvalid="this.setCustomValidity('Veuillez renseigner votre date de naissance.')"
+                               oninput="this.setCustomValidity('')"/>
+                    </div>
+                </div>
+                <div class="clearfix oe_login_buttons mb-3">
+                    <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                </div>
+            </form>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('form').addEventListener('submit', function(event) {
+                alert('Le patient a été ajouté avec succès.');
+                });
+                document.getElementById('telephone').addEventListener('input', function() {
+                if (this.value.length > 9) {
+                this.setCustomValidity('Le numéro de téléphone ne doit pas dépasser 9 chiffres.');
+                } else if (this.value.length &lt; 8) {
+                this.setCustomValidity('Le numéro de téléphone doit comporter exactement 9 chiffres.');
+                } else {
+                this.setCustomValidity('');
+                }
+                });
+                });
+            </script>
+        </t>
+    </template>
+
+<template id="wb_patient_list_view_portal">
+    <t t-call="portal.portal_layout">
+        <div class="o_search_options">
+            <div class="o_search_options_left">
+                <div class="o_search_options_filter o_input">
+                    <input type="text" name="search" placeholder="Search..." value="{{ search }}" />
+                    <select name="search_in" class="o_input o_search_options_filter_dropdown">
+                        <t t-foreach="searchbar_inputs.items()" t-as="input">
+                            <option t-att-value="input[1]['input']" t-att-selected="input[0] == search_in"><t t-esc="input[1]['label']"/></option>
+                        </t>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive border rounded border-top-0">
+            <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                <thead>
+                    <tr class="active">
+                        <th class="text-start">Reference</th>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Adresse</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Date de naissance</th>
+                        <th class="text-center">Telephone</th>
+                        <th class="text-center">Genre</th>
+                        <th class="text-end">Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="patients" t-as="patient">
+                        <tr>
+                            <td class="text-start">
+                                <a t-attf-href="/my/patient/#{patient.id}">
+                                    <t t-out="patient.reference"/>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="patient.name"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="patient.adresse"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="patient.email"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="patient.date_naissance"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-out="patient.telephone"/>
+                            </td>
+                            <td class="text-end">
+                                <t t-out="patient.genre"/>
+                            </td>
+                            <td class="text-end">
+                                <t t-out="patient.age"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</template>
+
+    <template id="wb_patient_form_view_portal" inherit_id="portal.portal_sidebar">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <section style="background-color: #eee;">
+                <div class="container py-2">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                         alt="avatar"
+                                         class="rounded-circle img-fluid" style="width: 150px;"/>
+                                    <t t-if="patient">
+                                        <h5 class="my-3" t-out="patient.name"/>
+                                        <p class="text-muted mb-1">Full Stack Developer</p>
+                                        <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <t t-if="patient">
+                                <form id="patientForm" role="form" action="/modify/webpatient" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="patient_id" t-att-value="patient.id"/>
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Nom patient</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="name" id="name" class="form-control"
+                                                           placeholder="Nom patient"
+                                                           required="required"
+                                                           t-att-value="patient.name"/>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Adresse</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="adresse" id="adresse" class="form-control"
+                                                           placeholder="Adresse"
+                                                           required="required"
+                                                           t-att-value="patient.adresse"/>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Telephone</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="telephone" id="telephone"
+                                                           class="form-control"
+                                                           placeholder="Telephone" pattern="\d{9}"
+                                                           required="required"
+                                                           t-att-value="patient.telephone"/>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Email</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="email" name="email" id="email" class="form-control"
+                                                           placeholder="Email"
+                                                           required="required"
+                                                           t-att-value="patient.email"/>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Date de naissance</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="date" id="date_naissance" name="date_naissance"
+                                                           class="form-control"
+                                                           required="required"
+                                                           t-att-value="patient.date_naissance"/>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Genre</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <select id="genre" name="genre"
+                                                            class="form-select form-select-sm required">
+                                                        <option t-att-selected="patient.genre == 'homme'" value="homme">
+                                                            Homme
+                                                        </option>
+                                                        <option t-att-selected="patient.genre == 'femme'" value="femme">
+                                                            Femme
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="clearfix oe_login_buttons mb-3">
+                                                <a t-attf-href="/my/patient">
+                                                    <button type="submit"
+                                                            class="btn btn-primary pull-left">Modifier
+                                                    </button>
+                                                </a>
+                                            </div>
+                                            <div t-if="success_message" class="alert alert-success">
+                                                <span t-esc="success_message"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </xpath>
+    </template>
+</odoo>

@@ -43,21 +43,31 @@ class CLiniqueRendezVous(models.Model):
     #         template_id = self.env.ref('clinique.rendez_vous_mail_templete')
     #         for appointment in appointments:
     #             template_id.send_mail(appointment.id, force_send=True)
+    # def action_send_email(self):
+    #     users = self.env['clinique.rendez_vous'].sudo().search([]).mapped('user_id')
+    #     print(users)
+    #     template_id = self.env.ref('clinique.rendez_vous_mail_templete')
+    #     for user in users:
+    #         appointments = self.env['clinique.rendez_vous'].search([('user_id', '=', user.id)])
+    #         for appointment in appointments:
+    #                 template_id.send_mail(appointment.id, force_send=True)
     def action_send_email(self):
         users = self.env['clinique.rendez_vous'].sudo().search([]).mapped('user_id')
-        print(users)
         template_id = self.env.ref('clinique.rendez_vous_mail_templete')
-        print(template_id)
         for user in users:
             appointments = self.env['clinique.rendez_vous'].search([('user_id', '=', user.id)])
-            print(appointments)
             for appointment in appointments:
-                print("sjsjjs")
-                if appointment.code:
-                    print("code")
-                    template_id.send_mail(appointment.id, force_send=True)
-                else:
-                    pass
+                # Send the email using the template
+                mail_id = template_id.send_mail(appointment.id, force_send=True)
+                # Add custom headers to the mail
+                mail = self.env['mail.mail'].browse(mail_id)
+                mail.write({
+                    'headers': {
+                        'X-Confidentiality': 'Confidential'  # Custom header
+                    }
+                })
+                mail.send()
+
 
     # def action_send_email(self):
     #     template_id = self.env.ref('clinique.rendez_vous_mail_templete')

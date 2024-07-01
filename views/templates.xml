@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <odoo>
-    <template id="assets_backend" name="add_javascript assets" Ensure_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/your_module_name/static/src/js/hello_world.js"></script>
-        </xpath>
+    <template id="patient_page" name="hospital patient">
+        <t t-call="website.layout">
+            <div class="wrap mt-3">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/webpatient" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group mb-3">
+                                <label class="mb-2" for="name">Votre nom</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="e.g john Doe" required="required"/>
+                            </div>
+                            <div class="clearfix oe_login_buttons mb-3">
+                                <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
     </template>
+
+    <template id="patient_confirmation_page" name="Patient Added Confirmation">
+    <t t-call="website.layout">
+        <div class="wrap mt-3">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="alert alert-success" role="alert">
+                        Le patient a été ajouté avec succès !
+                    </div>
+                    <a href="/hospital/patient" class="btn btn-primary">Retour à l'accueil</a>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
 </odoo>

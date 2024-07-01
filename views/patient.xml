@@ -10,7 +10,7 @@
                 <field name="genre"/>
                 <!--                <field name="adresse"/>-->
                 <!--                <field name="telephone"/>-->
-                                <field name="email"/>
+                <field name="email"/>
                 <field name="date_naissance"/>
                 <!--                <field name="profession"/>-->
                 <!--                <field name="derniere_visite"/>-->
@@ -37,6 +37,16 @@
         <field name="model">clinique.patient</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button id="en_cours_button" name="action_en_cours" string="En cours" type="object"
+                            class="btn-primary"/>
+                    <button id="en_attente_button" name="action_en_attente" string="En attente" type="object"
+                            class="btn-primary"/>
+                    <button id="resolu_button" name="action_resolu" string="Resolu" type="object" class="btn-primary"/>
+                    <button id="annuler_button" name="action_annuler" string="Annuler" type="object"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="nouveau, en_cours, en_attente, resolu"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -73,10 +83,42 @@
         </field>
     </record>
 
+
+    <!-- Kanban View -->
+    <record id="clinique_patient_kanban" model="ir.ui.view">
+        <field name="name">Patient Kanban</field>
+        <field name="model">clinique.patient</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="genre"/>
+                <field name="telephone"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <strong>
+                                <field name="name"/>
+                            </strong>
+                            <div>
+                                <field name="genre"/>
+                            </div>
+                            <div>
+                                <field name="age"/>
+                            </div>
+                            <div>
+                                <field name="email"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_clinique_patient">
         <field name="name">Patient</field>
         <field name="res_model">clinique.patient</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p>Creer un patient</p>
         </field>
