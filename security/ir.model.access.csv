@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-clinique.access_clinique_departement,access_clinique_departement,clinique.model_clinique_departement,base.group_user,1,1,1,1
-clinique.access_clinique_patient,access_clinique_patient,clinique.model_clinique_patient,base.group_user,1,1,1,1
-clinique.access_clinique_rendez_vous,access_clinique_rendez_vous,clinique.model_clinique_rendez_vous,base.group_user,1,0,0,0
-clinique.access_cancel_rendervous_wizard,access_cancel_rendervous_wizard,clinique.model_cancel_rendervous_wizard,base.group_user,1,1,1,1
-clinique.access_render_vous_report_wizard,access_render_vous_report_wizard,clinique.model_render_vous_report_wizard,base.group_user,1,1,1,1
+clinique.access_clinique_departement,access_clinique_departement,clinique.model_clinique_departement,,1,1,1,1
+clinique.access_clinique_patient,access_clinique_patient,clinique.model_clinique_patient,,1,1,1,1
+clinique.access_clinique_rendez_vous,access_clinique_rendez_vous,clinique.model_clinique_rendez_vous,,1,0,0,0
+clinique.access_cancel_rendervous_wizard,access_cancel_rendervous_wizard,clinique.model_cancel_rendervous_wizard,,1,1,1,1
+clinique.access_render_vous_report_wizard,access_render_vous_report_wizard,clinique.model_render_vous_report_wizard,,1,1,1,1

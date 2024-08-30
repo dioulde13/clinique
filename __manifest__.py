@@ -29,7 +29,7 @@
         'views/ir_cron.xml',
         'data/mail_template_data.xml',
         'views/patient.xml',
-        'views/templates.xml',  # Assurez-vous que ce fichier est bien listé ici
+        'views/templates.xml',
         'views/rendez_vous.xml',
         'wizard/annuler_render_vous.xml',
         'wizard/appointement_report_view.xml',

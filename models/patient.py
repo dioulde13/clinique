@@ -11,6 +11,7 @@ class CLiniquePatient(models.Model):
     name = fields.Char(string='Nom', tracking=True)
     genre = fields.Selection([('homme', 'Homme'), ('femme', 'Femme')], string='Genre', tracking=True)
     adresse = fields.Text(string='Adresse')
+    partner_id = fields.Many2one('res.partner')
     telephone = fields.Char(string='Téléphone')
     reference = fields.Char(string='Reference')
     email = fields.Char(string='Email')
